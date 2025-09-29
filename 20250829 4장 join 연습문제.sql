@@ -1,30 +1,30 @@
 --4장 JOIN 예제문제
 --등가조인
 --예 1) emp 테이블과 dept 테이블을 조회하여 아래와 같이 출력하세요.
-
+select e.ename,d.dname from emp e,dept d where e.deptno = d.deptno;
 --예 2) 학생 테이블 (student) 과 교수 테이블 (professor) 을 join 하여 학생의 이름과 지도교수번호, 지도교수 이름을 출력하세요.
-
+select s.name "STU_NAME",p.name "PROF_NAME" from student s,professor p where s.profno = p.profno;
 
 --예 3) 학생 테이블(student)과 학과 테이블(department) , 교수 테이블(professor) 을 Join하여 학생의 이름과 학생의 학과이름, 학생의 지도교수 이름을 출력하세요.
-
+select s.name "STU_NAME",d.dname "DEPT_NAME",p.name "PROF_NAME" from student s,department d,professor p where s.deptno1 = d.deptno and s.profno = p.profno;
 --비등가조인
 --예 1) Custormer 테이블과 gift 테이블을 Join하여 고객별로 마일리지 포인트를 조회한 후 해당 마일리지 점수로 받을 수 있는 상품을 조회하여 고객의 이름과 받을 수 있는 상품 명을 아래와 같이 출력하세요.
-
+select c.gname "CUST_NAME",to_char(c.point,'999,999') "POINT",g.gname "GIFT_NAME" from customer c,gift g where c.point between g.g_start and g.g_end;
 
 --예 2) Student 테이블과 score 테이블 , hakjum 테이블을 조회하여 학생들의 이름과 점수와 학점을 출력하세요.
-
+select s.name,sc.total,h.grade from student s,score sc,hakjum h where sc.studno=s.studno and sc.total>=h.min_point and sc.total<=h.max_point;
 
 --outer join
 --예 1 ) Student 테이블과 Professor 테이블을 Join하여 학생이름과 지도교수 이름을 출력하세요.
 --단 지도교수가 결정되지 않은 학생의 명단도 함께 출력하세요.
-
+select s.name "STU_NAME",p.name "PROF_NAME" from student s,professor p where s.profno = p.profno(+);
 
 --예 2 ) Student 테이블과 Professor 테이블을 Join하여 학생이름과 지도교수 이름을 출력하세요.
 --단 지도학생이 결정되지 않은 교수의 명단도 함께 출력하세요.
-
+select s.name "STU_NAME",p.name "PROF_NAME" from professor p left outer join student s on s.profno=p.profno;
 --예 3 ) Student 테이블과 Professor 테이블을 Join하여 학생이름과 지도교수 이름을 출력하세요.
 --단 지도학생이 결정 안 된 교수 명단과 지도 교수가 결정 안된 학생 명단을 한꺼번에 출력하세요.
-
+select s.name "STU_NAME",p.name "PROF_NAME" from student s full outer join professor p on s.profno=p.profno;
 --4장 JOIN 연습문제
 --1. 학생 테이블 (student) 과 학과 테이블 (department) 테이블을 사용하여 학생이름, 1 전공학과번호(deptno1) , 1전공 학과 이름을 출력하세요.
 select name stu_name,deptno1,dname dept_name from student s,department d where d.deptno=s.deptno1;
